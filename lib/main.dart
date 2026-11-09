@@ -1,5 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'study_planner.dart';
+import 'canteen.dart';
+import 'cyber_safety.dart';
+import 'attendance.dart';
+
 
 void main() {
   runApp(const CampusCompanion());
@@ -50,7 +55,6 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
-
             const Text(
               'Welcome, Student!',
               style: TextStyle(
@@ -78,35 +82,71 @@ class HomeScreen extends StatelessWidget {
                 mainAxisSpacing: 15,
 
                 children: [
-
                   featureCard(
+                    context,
                     Icons.book,
                     'Study Planner',
                     Colors.blue,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const StudyPlanner(),
+                        ),
+                      );
+                    },
                   ),
 
-                  featureCard(
-                    Icons.restaurant,
-                    'Canteen',
-                    Colors.orange,
-                  ),
+                  
+featureCard(
+  context,
+  Icons.restaurant,
+  'Canteen',
+  Colors.orange,
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const CanteenScreen(),
+      ),
+    );
+  },
+),
 
-                  featureCard(
-                    Icons.security,
-                    'Cyber Safety',
-                    Colors.green,
-                  ),
+featureCard(
+  context,
+  Icons.security,
+  'Cyber Safety',
+  Colors.green,
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const CyberSafetyScreen(),
+      ),
+    );
+  },
+),
 
-                  featureCard(
-                    Icons.calendar_month,
-                    'Attendance',
-                    Colors.purple,
-                  ),
+featureCard(
+  context,
+  Icons.calendar_month,
+  'Attendance',
+  Colors.purple,
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const AttendanceScreen(),
+      ),
+    );
+  },
+),
 
                 ],
               ),
             ),
-
           ],
         ),
       ),
@@ -114,10 +154,12 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget featureCard(
+    BuildContext context,
     IconData icon,
     String title,
-    Color color,
-  ) {
+    Color color, {
+    VoidCallback? onTap,
+  }) {
     return Card(
       elevation: 3,
 
@@ -125,30 +167,33 @@ class HomeScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
       ),
 
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(18),
 
-        children: [
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
 
-          Icon(
-            icon,
-            size: 45,
-            color: color,
-          ),
-
-          const SizedBox(height: 12),
-
-          Text(
-            title,
-            textAlign: TextAlign.center,
-
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+          children: [
+            Icon(
+              icon,
+              size: 45,
+              color: color,
             ),
-          ),
 
-        ],
+            const SizedBox(height: 12),
+
+            Text(
+              title,
+              textAlign: TextAlign.center,
+
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
